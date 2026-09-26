@@ -1,0 +1,9 @@
+2026-09-25T10:01:12 user=john src_ip=10.0.0.25 event=LOGIN status=SUCCESS
+2026-09-25T10:03:44 user=admin src_ip=185.23.44.10 event=LOGIN status=FAILED
+2026-09-25T10:03:51 user=admin src_ip=185.23.44.10 event=LOGIN status=FAILED
+2026-09-25T10:04:02 user=admin src_ip=185.23.44.10 event=LOGIN status=FAILED
+2026-09-25T10:04:13 user=admin src_ip=185.23.44.10 event=LOGIN status=FAILED
+2026-09-25T10:04:25 user=admin src_ip=185.23.44.10 event=LOGIN status=FAILED
+2026-09-25T10:04:37 user=admin src_ip=185.23.44.10 event=LOGIN status=SUCCESS
+2026-09-25T10:10:02 user=alice src_ip=10.0.0.31 event=LOGIN status=SUCCESS
+2026-09-25T10:12:22 user=bob src_ip=10.0.0.42 event=LOGIN status=FAILED
