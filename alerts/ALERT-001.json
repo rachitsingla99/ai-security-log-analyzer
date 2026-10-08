@@ -1,0 +1,14 @@
+{
+    "alert_id": "ALERT-001",
+    "created_at": "2026-10-08T17:34:18.342055+00:00",
+    "status": "OPEN",
+    "alert": {
+        "type": "BRUTE_FORCE_SUCCESS",
+        "source_ip": "185.23.44.10",
+        "username": "admin",
+        "failed_attempts": 5,
+        "successful_login": "2026-09-25T10:04:37",
+        "severity": "HIGH",
+        "description": "Multiple failed login attempts followed by a successful login"
+    }
+}

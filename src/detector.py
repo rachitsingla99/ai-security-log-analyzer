@@ -70,3 +70,87 @@ def detect_brute_force(events):
             login_history[key] = []
 
     return alerts
+
+
+def detect_password_spray(events):
+    failed_logins = defaultdict(list)
+    alerts = []
+
+    for event in events:
+
+        if (
+            event.get("event") == "LOGIN"
+            and event.get("status") == "FAILED"
+        ):
+            ip = event.get("src_ip")
+            username = event.get("user")
+            timestamp = event.get("timestamp")
+
+            if ip and username and timestamp:
+                failed_logins[ip].append({
+                    "username": username,
+                    "timestamp": datetime.fromisoformat(timestamp)
+                })
+
+    for ip, attempts in failed_logins.items():
+
+        attempts.sort(key=lambda item: item["timestamp"])
+
+        for index, attempt in enumerate(attempts):
+
+            window_start = attempt["timestamp"]
+            window_end = window_start + timedelta(minutes=10)
+
+            recent_attempts = [
+                item for item in attempts
+                if window_start <= item["timestamp"] <= window_end
+            ]
+
+            unique_users = set(
+                item["username"] for item in recent_attempts
+            )
+
+            if len(unique_users) >= 3:
+
+                alerts.append({
+                    "type": "PASSWORD_SPRAY",
+                    "source_ip": ip,
+                    "targeted_accounts": sorted(unique_users),
+                    "unique_accounts": len(unique_users),
+                    "severity": "HIGH",
+                    "description": (
+                        "Multiple user accounts experienced "
+                        "failed logins from the same IP "
+                        "within 10 minutes"
+                    )
+                })
+
+                break
+
+    return alerts
+
+def detect_privilege_change(events):
+    alerts = []
+
+    for event in events:
+
+        if (
+            event.get("event") == "PRIVILEGE_CHANGE"
+            and event.get("status") == "SUCCESS"
+        ):
+
+            alerts.append({
+                "type": "PRIVILEGE_CHANGE",
+                "source_ip": event.get("src_ip"),
+                "performed_by": event.get("user"),
+                "target_user": event.get("target_user"),
+                "action": event.get("action"),
+                "timestamp": event.get("timestamp"),
+                "severity": "MEDIUM",
+                "description": (
+                    "Successful privilege change detected. "
+                    "Review whether the change was authorized."
+                )
+            })
+
+    return alerts

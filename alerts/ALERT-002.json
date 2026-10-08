@@ -1,0 +1,18 @@
+{
+    "alert_id": "ALERT-002",
+    "created_at": "2026-10-08T17:34:18.342931+00:00",
+    "status": "OPEN",
+    "alert": {
+        "type": "PASSWORD_SPRAY",
+        "source_ip": "198.51.100.23",
+        "targeted_accounts": [
+            "alice",
+            "bob",
+            "charlie",
+            "john"
+        ],
+        "unique_accounts": 4,
+        "severity": "HIGH",
+        "description": "Multiple user accounts experienced failed logins from the same IP within 10 minutes"
+    }
+}
