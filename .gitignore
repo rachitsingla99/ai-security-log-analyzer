@@ -4,3 +4,18 @@ __pycache__/
 .env
 .venv/
 investigation_packages/
+
+
+# Python cache and environments
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Local backups and generated investigation packages
+alerts_backup/
+investigation_packages/
+
+# Local development files
+.vscode/
+.idea/
